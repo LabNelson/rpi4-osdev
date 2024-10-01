@@ -64,8 +64,8 @@
 /* Callback  functions  *********************************************************/
 
 /**
-  * Implement SPI Slave selection and deselection. Must be provided by user code
-  * param  select: true if the ENC28J60 slave SPI if selected, false otherwise
+  * Implement SPI client selection and deselection. Must be provided by user code
+  * param  select: true if the ENC28J60 client SPI if selected, false otherwise
   * retval none
   */
 
@@ -73,7 +73,7 @@ void ENC_SPI_Select(bool select);
 
 /**
   * Implement SPI single byte send and receive.
-  * The ENC28J60 slave SPI must already be selected and wont be deselected after transmission
+  * The ENC28J60 client SPI must already be selected and wont be deselected after transmission
   * Must be provided by user code
   * param  command: command or data to be sent to ENC28J60
   * retval answer from ENC28J60
@@ -91,12 +91,12 @@ void ENC_SPI_Send(uint8_t command);
 
 /**
   * Implement SPI buffer send and receive. Must be provided by user code
-  * param  master2slave: data to be sent from host to ENC28J60, can be NULL if we only want to receive data from slave
-  * param  slave2master: answer from ENC28J60 to host, can be NULL if we only want to send data to slave
+  * param  server2client: data to be sent from host to ENC28J60, can be NULL if we only want to receive data from client
+  * param  client2server: answer from ENC28J60 to host, can be NULL if we only want to send data to client
   * retval none
   */
 
-void ENC_SPI_SendBuf(uint8_t *master2slave, uint8_t *slave2master, uint16_t bufferSize);
+void ENC_SPI_SendBuf(uint8_t *server2client, uint8_t *client2server, uint16_t bufferSize);
 
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup ETH_Exported_Types ETH Exported Types
@@ -794,10 +794,10 @@ void ENC_GetPkcnt(ENC_HandleTypeDef *handle);
  * Function: up_udelay
  *
  * Description:
- *   wait us µs
+ *   wait us ï¿½s
  *
  * Parameters:
- *   us  - The amount of time to wait in µs
+ *   us  - The amount of time to wait in ï¿½s
  *
  * Returned Value:
  *   none

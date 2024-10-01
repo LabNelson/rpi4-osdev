@@ -22,7 +22,7 @@ Bootstrapping
 
 The first code that the RPi4 will run will need to be written in assembly language. It makes some checks, does some setup and launches us into our first C program - the **kernel**.
 
- * The Arm Cortex-A72 has four cores. We only want our code to run on the master core, so we check the processor ID and either run our code (master) or hang in an infinite loop (slave).
+ * The Arm Cortex-A72 has four cores. We only want our code to run on the main core, so we check the processor ID and either run our code (main) or hang in an infinite loop (secondary).
  * We need to tell our OS how to access the **stack**. I think of the stack as temporary storage space used by currently-executing code, like a scratchpad. We need to set memory aside for it and store a pointer to it.
  * We also need to initialise the BSS section. This is the area in memory where uninitialised variables will be stored. It's more efficient to initialise everything to zero here, rather than take up space in our kernel image doing it explicitly.
  * Finally, we can jump to our main() routine in C!
@@ -58,7 +58,7 @@ _start:
 
     // Jump to our main() routine in C (make sure it doesn't return)
 4:  bl      main
-    // In case it does return, halt the master core too
+    // In case it does return, halt the main core too
     b       1b
 ```
 

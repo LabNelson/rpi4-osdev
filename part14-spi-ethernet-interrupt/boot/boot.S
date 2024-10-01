@@ -82,7 +82,7 @@ el1_entry:
 
     // Jump to our main() routine in C (make sure it doesn't return)
 4:  bl      main
-    // In case it does return, halt the master core too
+    // In case it does return, halt the main core too
     b       1b
 
 .ltorg
